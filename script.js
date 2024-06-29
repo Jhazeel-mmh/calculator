@@ -19,6 +19,7 @@ btns.addEventListener("click", event => {
             num1 = previousResult;
             previousResult = 0;
             output.textContent = "";
+            operatorOp = targetId;
             return;
         }
 
