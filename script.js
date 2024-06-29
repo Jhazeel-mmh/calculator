@@ -45,6 +45,7 @@ function handleMathOperator(operatorId){
     if (operatorId === "equal"){
         return getAndDisplayResult();
     }
+
     if ((num1 && num2) && operatorId !== "equal"){
         num1 = operator(num1, num2, operatorOp);
         num2 = 0;
@@ -63,6 +64,7 @@ function operator(num1, num2, operator){
         case "sub":
             return a - b;
         case "divide":
+            if (b === 0) displayError("Invalid Operation")
             return a / b;
         case "times":
             return a * b;
@@ -72,6 +74,12 @@ function operator(num1, num2, operator){
 };
 
 function getAndDisplayResult(){
+    if (!operatorOp){
+        return displayError("Syntax Error")
+    }
+    if (num1 === "" || num2 === ""){
+        return displayError("Syntax Error");
+    }
     if (!(result)){
         result = operator(num1, num2, operatorOp);
     }
