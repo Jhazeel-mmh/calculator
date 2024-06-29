@@ -15,6 +15,14 @@ btns.addEventListener("click", event => {
 
     if (targetClass === "operators"){
 
+        if (!(num1)){
+            num1 = output.textContent;
+        }
+
+        if (!(num2) && num1){
+            num2 = output.textContent;
+        }
+
         if (targetId === "equal"){
             if (!(num1 || num2)){
                 return error();
@@ -23,17 +31,10 @@ btns.addEventListener("click", event => {
                 result = operator(num1, num2, operatorOp);
             }
             output.textContent = result;
+            return;           
         }
-
-        if (!(num1)){
-            num1 = output.textContent;
-        }
-
-        if (!(num2)){
-            num2 = output.textContent;
-        }
-        
-        operatorOp = target.value;
+      
+        operatorOp = targetId;
         output.textContent = "";
     }
 
@@ -44,16 +45,16 @@ function operator(num1, num2, operator){
     let a = Number(num1);
     let b = Number(num2);
     switch (operator){
-        case "+":
+        case "sum":
             return a + b;
             break;
-        case "-":
+        case "sub":
             return a - b;
             break;
-        case "/":
+        case "divide":
             return a / b;
             break;
-        case "*":
+        case "times":
             return a * b;
             break;
         default:
