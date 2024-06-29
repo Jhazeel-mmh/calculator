@@ -14,6 +14,9 @@ btns.addEventListener("click", event => {
     }
 
     if (targetClass === "operators"){
+        if (targetId === "clear"){
+            return clearAll();
+        }
 
         if (previousResult && !(num1 && num2)){    
             return handlePreviousResult(targetId);
@@ -45,16 +48,12 @@ function operator(num1, num2, operator){
     switch (operator){
         case "sum":
             return a + b;
-            break;
         case "sub":
             return a - b;
-            break;
         case "divide":
             return a / b;
-            break;
         case "times":
             return a * b;
-            break;
         default:
             return errorFunc(); 
     }
@@ -81,5 +80,14 @@ function handlePreviousResult(operator){
     previousResult = 0;
     output.textContent = "";
     operatorOp = operator;
+    return;
+}
+
+function clearAll(){
+    num1 = 0, num2 = 2;
+    previousResult = 0;
+    result = 0;   
+    operatorOp = "";
+    output.textContent = "";
     return;
 }
