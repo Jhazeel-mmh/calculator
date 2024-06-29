@@ -1,6 +1,6 @@
 let btns = document.querySelector(".buttons");
 let output = document.querySelector(".result");
-let num1 = 0, num2 = 0, result = 0, operatorOp;
+let num1 = 0, num2 = 0, result = 0, previousResult = 0, operatorOp;
 
 
 btns.addEventListener("click", event => {
@@ -15,14 +15,22 @@ btns.addEventListener("click", event => {
 
     if (targetClass === "operators"){
 
+        if (previousResult && !(num1 && num2)){
+            num1 = previousResult;
+            previousResult = 0;
+            output.textContent = "";
+            return;
+        }
+
+        if (num1 && !(num2)){
+            num2 = output.textContent;
+        }
+
         if (!(num1)){
             num1 = output.textContent;
         }
 
-        if (!(num2) && num1){
-            num2 = output.textContent;
-        }
-
+    
         if (targetId === "equal"){
             if (!(num1 || num2)){
                 return error();
@@ -31,6 +39,11 @@ btns.addEventListener("click", event => {
                 result = operator(num1, num2, operatorOp);
             }
             output.textContent = result;
+            num1 = 0;
+            num2 = 0;
+            operatorOp = "";
+            previousResult = result;
+            result = 0;
             return;           
         }
       
