@@ -2,11 +2,11 @@ let btns = document.querySelector(".buttons");
 let output = document.querySelector(".result");
 let num1 = 0, num2 = 0, result = 0, previousResult = 0, operatorOp;
 
-
+// main function
 btns.addEventListener("click", event => {
-    let target = event.target;
-    let targetId = target.id;
-    let targetClass = target.className;
+    const target = event.target;
+    const targetId = target.id;
+    const targetClass = target.className;
 
 
     if (targetClass === "numbers"){
@@ -14,39 +14,45 @@ btns.addEventListener("click", event => {
     }
 
     if (targetClass === "operators"){
-        if (targetId === "clear"){
-            return clearAll();
-        }
-        if (targetId === "delete"){
-            return deleteDigit();
-        }
-
-        if (previousResult && !(num1 && num2)){    
-            return handlePreviousResult(targetId);
-        }
-
-        if (num1 && !(num2)){
-            num2 = output.textContent;
-        }
-
-        if (!(num1)){
-            num1 = output.textContent;
-        }
-
-    
-        if (targetId === "equal"){
-            return getAndDisplayResult();
-        }
-        else if ((num1 && num2) && targetId !== "equal"){
-            num1 = operator(num1, num2, operatorOp);
-            num2 = 0;
-        }
-      
-        operatorOp = targetId;
-        output.textContent = "";
+        handleOperators(targetId);
     }
 });
 
+function handleOperators(operatorId){
+    switch (operatorId){
+        case "clear":
+            return clearAll();
+        case "delete":
+            return deleteDigit();
+        default:
+            return handleMathOperator(operatorId);
+    }
+}
+
+function handleMathOperator(operatorId){
+    if (previousResult && !(num1 && num2)){    
+        return handlePreviousResult(operatorId);
+    }
+
+    if (num1 && !(num2)){
+        num2 = output.textContent;
+    }
+
+    if (!(num1)){
+        num1 = output.textContent;
+    }
+
+    if (operatorId === "equal"){
+        return getAndDisplayResult();
+    }
+    if ((num1 && num2) && operatorId !== "equal"){
+        num1 = operator(num1, num2, operatorOp);
+        num2 = 0;
+    }
+  
+    operatorOp = operatorId;
+    output.textContent = "";
+}
 
 function operator(num1, num2, operator){
     let a = Number(num1);
