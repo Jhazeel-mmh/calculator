@@ -65,7 +65,7 @@ function operator(num1, num2, operator){
         case "sub":
             return a - b;
         case "divide":
-            return a / b;
+            return (a / b).toFixed(5);
         case "times":
             return a * b;
         default:
