@@ -15,12 +15,8 @@ btns.addEventListener("click", event => {
 
     if (targetClass === "operators"){
 
-        if (previousResult && !(num1 && num2)){
-            num1 = previousResult;
-            previousResult = 0;
-            output.textContent = "";
-            operatorOp = targetId;
-            return;
+        if (previousResult && !(num1 && num2)){    
+            return handlePreviousResult(targetId);
         }
 
         if (num1 && !(num2)){
@@ -77,5 +73,13 @@ function getAndDisplayResult(){
     operatorOp = "";
     previousResult = result;
     result = 0;
+    return;
+}
+
+function handlePreviousResult(operator){
+    num1 = previousResult;
+    previousResult = 0;
+    output.textContent = "";
+    operatorOp = operator;
     return;
 }
