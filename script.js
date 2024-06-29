@@ -10,6 +10,9 @@ btns.addEventListener("click", event => {
 
 
     if (targetClass === "numbers"){
+        if (output.textContent.includes(".") && targetId === "dot"){
+            return;
+        }    
         output.textContent += target.value;
     }
 
