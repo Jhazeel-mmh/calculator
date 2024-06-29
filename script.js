@@ -43,6 +43,7 @@ function handleMathOperator(operatorId){
     }
 
     if (operatorId === "equal"){
+        if(checkErrors()) return;
         return getAndDisplayResult();
     }
 
@@ -64,22 +65,15 @@ function operator(num1, num2, operator){
         case "sub":
             return a - b;
         case "divide":
-            if (b === 0) displayError("Invalid Operation")
             return a / b;
         case "times":
             return a * b;
         default:
-            return errorFunc(); 
+            return displayError("Invalid Operator"); 
     }
 };
 
 function getAndDisplayResult(){
-    if (!operatorOp){
-        return displayError("Syntax Error")
-    }
-    if (num1 === "" || num2 === ""){
-        return displayError("Syntax Error");
-    }
     if (!(result)){
         result = operator(num1, num2, operatorOp);
     }
@@ -98,6 +92,27 @@ function handlePreviousResult(operator){
     previousResult = 0;
     output.textContent = "";
     operatorOp = operator;
+    return;
+}
+
+function checkErrors(){
+    if (Number(num2) === 0 && operatorOp === "divide"){
+        displayError("Invalid Operation");
+        return true;
+    } else if (!operatorOp){
+        displayError("Syntax Error");
+        return true;
+    } else if (num1 === "" || num2 === ""){
+        displayError("Syntax Error");
+        return true;
+    }   
+}
+
+function displayError(msg){
+    output.textContent = msg;
+    setTimeout(() => {
+        clearAll();
+    }, 3000);
     return;
 }
 
