@@ -33,19 +33,7 @@ btns.addEventListener("click", event => {
 
     
         if (targetId === "equal"){
-            if (!(num1 || num2)){
-                return error();
-            }
-            if (!(result)){
-                result = operator(num1, num2, operatorOp);
-            }
-            output.textContent = result;
-            num1 = 0;
-            num2 = 0;
-            operatorOp = "";
-            previousResult = result;
-            result = 0;
-            return;           
+            return getAndDisplayResult();
         }
       
         operatorOp = targetId;
@@ -72,6 +60,22 @@ function operator(num1, num2, operator){
             return a * b;
             break;
         default:
-            return error(); 
+            return errorFunc(); 
     }
 };
+
+function getAndDisplayResult(){
+    if (!(num1 || num2)){
+        return errorFunc("Math Error");
+    }
+    if (!(result)){
+        result = operator(num1, num2, operatorOp);
+    }
+    output.textContent = result;
+    num1 = 0;
+    num2 = 0;
+    operatorOp = "";
+    previousResult = result;
+    result = 0;
+    return;
+}
